@@ -35,3 +35,18 @@ for i,ax in enumerate(axes.flat):
     ax.set_yticks([])
 
 plt.show()
+
+import joblib
+joblib.dump(clf,'digits_svm.pkl')
+
+#演示调用
+clf2=joblib.load('digits_svm.pkl')
+accuracy2 = clf2.score(X_test,y_test)
+print('test: Accuracy score of the {} is {:.2f}'.format(clf2.__class__.__name__,accuracy2))
+
+from sklearn.ensemble import RandomForestClassifier # RandomForestClassifier轻松替换LogisticRegression分类器
+clf3 = RandomForestClassifier(n_estimators=100, n_jobs=-1, random_state=42)
+clf3.fit(X_train, y_train)
+accuracy3 = clf3.score(X_test, y_test)
+
+print('Accuracy score of the {} is {:.2f}'.format(clf3.__class__.__name__, accuracy3))
